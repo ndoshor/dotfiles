@@ -2,3 +2,8 @@
 name = "c"
 auto-format = true
 formatter = { command = "clang-format", args = ["--style={BasedOnStyle: LLVM, IndentWidth: 4, BreakBeforeBraces: Linux}"] }
+
+[[language]]
+name = "go"
+auto-format = true
+formatter = { command = "gofmt" }
