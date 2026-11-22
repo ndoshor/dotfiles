@@ -27,4 +27,12 @@ rivertile -view-padding 6 -outer-padding 6 &
 
 riverctl map normal None Print spawn 'sh -c "grim -g \"$(slurp)\" - | wl-copy"'
 riverctl map normal Shift Print spawn 'sh -c "grim -g \"$(slurp)\" - | satty -f - --copy-command wl-copy -o ~/Pictures/Screenshots/%Y%m%d_%H%M%S.png"'
-riverctl map normal Control Print spawn 'sh -c "grim ~/Pictures/Screenshots/$( +%Y%m%d_%H%M%S).png"'
+riverctl map normal Control Print spawn 'sh -c "grim ~/Pictures/Screenshots/$(date +%Y%m%d_%H%M%S).png"'
+
+touchpad="pointer-2-14-ETPS/2_Elantech_Touchpad"
+
+riverctl input "$touchpad" tap enabled
+riverctl ouchpad input "$touchpad" tap-button-map left-right-middle
+riverctl ouchpad input "$touchpad" natural-scroll enabled
+riverctl ouchpad input "$touchpad" disable-while-typing enabled
+riverctl ouchpad input "$touchpad" drag enabled
