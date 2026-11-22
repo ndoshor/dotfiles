@@ -1,0 +1,7 @@
+* { font-family: monospace; font-size: 13px; }
+window#waybar { background: #1e1e2e; color: #cdd6f4; }
+
+#tags button { padding: 0 8px; color: #6c7086; background: transparent; border: none; }
+#tags button.occupied { color: #cdd6f4; }
+#tags button.focused { background: #89b4fa; color: #1e1e2e; }
+#tags button.urgent { background: #f38ba8; color: #1e1e2e; }
