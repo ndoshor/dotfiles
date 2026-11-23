@@ -36,3 +36,19 @@ riverctl ouchpad input "$touchpad" tap-button-map left-right-middle
 riverctl ouchpad input "$touchpad" natural-scroll enabled
 riverctl ouchpad input "$touchpad" disable-while-typing enabled
 riverctl ouchpad input "$touchpad" drag enabled
+
+dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=river
+# Volume (hold to repeat)
+riverctl map -repeat normal None XF86AudioRaiseVolume spawn '/home/ns/.config/yambar/volume.sh up'
+riverctl map -repeat normal None XF86AudioLowerVolume spawn '/home/ns/.config/yambar/volume.sh down'
+riverctl map normal None XF86AudioMute spawn '/home/ns/.config/yambar/volume.sh mute'
+riverctl map normal None XF86AudioMicMute spawn 'wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle'
+
+# Brightness (hold to repeat)
+riverctl map -repeat normal None XF86MonBrightnessUp spawn 'brightnessctl set 5%+'
+riverctl map -repeat normal None XF86MonBrightnessDown spawn 'brightnessctl set 5%-'
+
+# Media (optional)
+riverctl map normal None XF86AudioPlay spawn 'playerctl play-pause'
+riverctl map normal None XF86AudioNext spawn 'playerctl next'
+riverctl map normal None XF86AudioPrev spawn 'playerctl previous'

@@ -1,33 +1,100 @@
 bar:
-  height: 24
+  height: 28
   location: top
-  font: monospace:size=11
-  background: 1e1e2eff
-  foreground: cdd6f4ff
+  font: JetBrainsMono Nerd Font:pixelsize=14
+  background: 1a1b2600
+  foreground: a9b1d6ff
+  left-margin: 10
+  right-margin: 10
+  spacing: 16
+
   left:
     - river:
-        anchors:
-          - base: &river_base
-              left-margin: 8
-              right-margin: 8
-              text: "{id}"
         content:
           map:
             conditions:
               state == focused:
                 string:
-                  <<: *river_base
-                  foreground: 1e1e2eff
-                  deco: {background: {color: 89b4faff}}
-              state == invisible && ~occupied:
-                empty: {}
-              state == invisible && occupied:
-                string:
-                  <<: *river_base
-              state == visible:
-                string:
-                  <<: *river_base
-  right:
+                  text: "{id}"
+                  margin: 6
+                  foreground: c0caf5ff
+                  deco: {underline: {size: 2, color: 7aa2f5ff}}
+              occupied:
+                string: {text: "{id}", margin: 6}
+              id < 6:
+                string: {text: "{id}", margin: 6, foreground: 565f89ff}
+            default:
+              empty: {}
+
+  center:
     - clock:
+        date-format: "%A"
+        time-format: "%H:%M"
         content:
           - string: {text: "{date} {time}"}
+
+  right:
+    - cpu:
+        poll-interval: 2000
+        content:
+          map:
+            conditions:
+              id == -1:
+                string: {text: "\uf2db {cpu}%"}
+            default:
+              empty: {}
+    - mem:
+        poll-interval: 5000
+        content:
+          string: {text: "\uf233 {percent_used}%"}
+    - network:
+        poll-interval: 5000
+        content:
+          map:
+            conditions:
+              name == wls2 && state == up && ipv4 != "":
+                string:
+                  text: "\U000f05a9 {ssid} "
+                  on-click:
+                    left: foot -e nmtui
+              name == wls2:
+                string:
+                  text: "\U000f05aa "
+                  foreground: f7768eff
+                  on-click:
+                    left: foot -e nmtui
+            default:
+              empty: {}
+    - alsa:
+        card: default
+        mixer: Master
+        content:
+          map:
+            conditions:
+              muted:
+                string:
+                  text: "\uf026"
+                  foreground: 565f89ff
+                  on-click:
+                    left: /home/ns/.config/yambar/volume.sh mute
+              ~muted:
+                string:
+                  text: "\uf028 {percent}%"
+                  on-click:
+                    left: /home/ns/.config/yambar/volume.sh mute
+                    right: pavucontrol
+                    wheel-up: /home/ns/.config/yambar/volume.sh up
+                    wheel-down: /home/ns/.config/yambar/volume.sh down
+    - battery:
+        name: BAT0
+        poll-interval: 30000
+        content:
+          string: {text: "\uf240 {capacity}%"}
+    - label:
+        content:
+          string:
+            text: "\uf011"
+            margin: 8
+            foreground: f7768eff
+            on-click:
+              left: /home/ns/.config/yambar/powermenu.sh 
