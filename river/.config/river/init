@@ -1,6 +1,6 @@
 #!/bin/sh
 mod=Super
-waybar &
+yambar &
 riverctl map normal $mod Return spawn foot
 riverctl map normal $mod D spawn wmenu-run
 riverctl map normal $mod Q close

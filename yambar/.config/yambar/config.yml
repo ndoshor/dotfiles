@@ -1,0 +1,33 @@
+bar:
+  height: 24
+  location: top
+  font: monospace:size=11
+  background: 1e1e2eff
+  foreground: cdd6f4ff
+  left:
+    - river:
+        anchors:
+          - base: &river_base
+              left-margin: 8
+              right-margin: 8
+              text: "{id}"
+        content:
+          map:
+            conditions:
+              state == focused:
+                string:
+                  <<: *river_base
+                  foreground: 1e1e2eff
+                  deco: {background: {color: 89b4faff}}
+              state == invisible && ~occupied:
+                empty: {}
+              state == invisible && occupied:
+                string:
+                  <<: *river_base
+              state == visible:
+                string:
+                  <<: *river_base
+  right:
+    - clock:
+        content:
+          - string: {text: "{date} {time}"}
